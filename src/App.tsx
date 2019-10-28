@@ -1,34 +1,58 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {initialState, AppContext} from "./store";
+import {Color} from "react-color";
 
 interface Props {
     icons: string[];
-    backgrounds: string[];
+    backgrounds?: string[];
 }
 
 interface State {
-    selectedIcons: string[];
-    selectedBackground: string;
+    patternIcons: string[];
+    selectedBackground: Color;
 }
 
-const initialState: State = {
-    selectedIcons: [],
-    selectedBackground: 'transparent',
-};
 
-const AppContext = React.createContext(initialState);
 
-class App extends React.Component<Props, State> {
+
+class App extends Component<Props, State> {
     state = {
-        ...initialState,
+        patternIcons: [],
+        selectedBackground: 'transparent',
     };
+
+    addPatternIcon = (icon: string) => {
+        this.setState(state => (
+            {
+                ...state,
+                patternIcons: [...state.patternIcons, icon]
+            }))
+    };
+
+    changeBackground = (background: Color) => {
+        this.setState({selectedBackground: background})
+    };
+
+
 
     render() {
         return (
-            <AppContext.Provider value={this.state}>
+            <AppContext.Provider value={
+                {
+                    state: this.state,
+                    icons: this.props.icons || initialState.icons,
+                    backgrounds: this.props.backgrounds || initialState.backgrounds,
+                    handlers: {
+                        addPatternIcon: this.addPatternIcon,
+                        changeBackground: this.changeBackground,
+                    }
+                }
+            }>
                 {this.props.children}
             </AppContext.Provider>
         )
     }
+
 }
 
 export default App
