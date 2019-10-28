@@ -14,7 +14,7 @@ const Controls:React.FC = () => {
         = React.useContext(AppContext);
 
    return (
-       <div>
+       <div className="pb__controls">
            <IconsList addPatternIcon={addPatternIcon} icons={icons} />
            <BackgroundPicker selected={selectedBackground} onChange={changeBackground} backgrounds={backgrounds} />
        </div>
