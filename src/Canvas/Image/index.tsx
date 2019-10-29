@@ -3,6 +3,8 @@ import { Image } from 'react-konva'
 import useImage from 'use-image'
 
 interface Props {
+    x: number
+    y: number
     width: number
     height: number
     onMouseOver:() => void
