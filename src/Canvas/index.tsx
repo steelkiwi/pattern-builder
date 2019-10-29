@@ -1,29 +1,62 @@
 import React from 'react';
 import { Stage, Layer, Group, Rect } from 'react-konva';
 import Image from './Image';
-import {Color} from "react-color";
+import {AppContext} from "../store";
 
-interface Props {
-    stageRef: any
-    width: number
-    height: number
-    selectedBackground: Color
-}
 
-const Canvas:React.FC<Props> = ({stageRef, width, height, selectedBackground}) => {
+const handleCursorOver = (target: string) => {
+    document.body.style.cursor = target
+};
+
+const handleCursorOut = () => {
+    document.body.style.cursor = 'default'
+};
+
+const Canvas:React.FC = () => {
+    const {
+        state: {selectedBackground, canvasWidth, canvasHeight, patternIcons}
+        }
+        = React.useContext(AppContext);
+
     return (
+        // @ts-ignore
         <Stage
-            width={width}
-            height={height}
+            // ref={stageRef}
+            width={canvasWidth}
+            height={canvasHeight}
+
         >
             <Layer>
                 <Rect
-                    width={width}
-                    height={height}
+                    width={canvasWidth}
+                    height={canvasHeight}
                     fill={selectedBackground}
                 >
-
                 </Rect>
+                {patternIcons.map((item: string, index: number) => {
+                    return (
+                        <Group
+                            y={0}
+                            key={index}
+                            draggable
+                        >
+                            {[...Array(100)].map((_, index) => {
+                                const x = index % 10 * 170;
+                                const y = Math.floor(index / 10) * 270 ;
+                                return (
+                                    <Image
+                                        width={55}
+                                        height={55}
+                                        onMouseOver={() => handleCursorOver('move')}
+                                        onMouseOut={handleCursorOut}
+                                        x={x}
+                                        y={y}
+                                        link={item}
+                                    />
+                                )})}
+                        </Group>
+                    )
+                })}
             </Layer>
         </Stage>
     )
