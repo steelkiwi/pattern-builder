@@ -3,7 +3,7 @@ import {Color} from "react-color";
 
 import {AppContext} from "./store";
 import {getRGBAString} from "./helpers";
-import './index.scss'
+import './Index.scss'
 
 interface Props {
   icons: string[];
@@ -19,7 +19,7 @@ interface State {
 export default class App extends Component<Props, State> {
   state = {
     patternIcons: [],
-    selectedBackground: 'green',
+    selectedBackground: 'green'
   };
 
   canvasRef = createRef<HTMLDivElement>();

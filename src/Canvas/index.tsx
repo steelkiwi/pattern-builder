@@ -1,77 +1,55 @@
-import React, {useEffect, useState} from 'react';
-import { Stage, Layer, Group, Rect } from 'react-konva';
-import Image from './Image';
+import React, {useEffect, useState, useContext} from 'react';
+import {Stage, Layer, Group, Rect} from 'react-konva';
+
+import {handleCursorOutIcon, handleCursorOverIcon} from "../helpers";
 import {AppContext} from "../store";
-import {handleCursorOut, handleCursorOver} from "../helpers/helpers";
+import PatternGroup from "./PatternGroup";
 
 interface CanvasSizes {
-    canvasWidth: number;
-    canvasHeight: number;
+  canvasWidth: number;
+  canvasHeight: number;
 }
 
-const Canvas:React.FC = () => {
-    const [canvasSizes, setCanvasSizes] = useState<CanvasSizes>({
-        canvasWidth: 0,
-        canvasHeight: 0,
-    });
-    const {canvasWidth, canvasHeight} = canvasSizes;
-    const {
-        state: {selectedBackground, patternIcons},
-        canvasRef,
-        }
-        = React.useContext(AppContext);
+const Canvas: React.FC = () => {
+  const {
+    state: {selectedBackground, patternIcons},
+    canvasRef,
+  } = useContext(AppContext);
 
-    useEffect(() => {
-        const canvasWrapper = canvasRef.current.content.parentNode.parentNode;
-        const canvasWidth: number = canvasWrapper.offsetWidth;
-        const canvasHeight: number = canvasWrapper.offsetHeight;
-        setCanvasSizes({
-            canvasWidth,
-            canvasHeight,
-        })
-    }, [canvasRef]);
+  const [canvasSizes, setCanvasSizes] = useState<CanvasSizes>({
+    canvasWidth: 0,
+    canvasHeight: 0,
+  });
+  const {canvasWidth, canvasHeight} = canvasSizes;
 
-    return (
-        <Stage
-            ref={canvasRef}
-            width={canvasWidth}
-            height={canvasHeight}
+  useEffect(() => {
+    // TODO: Get sizes with another algorithm
+    const canvasWrapper = canvasRef.current.content.parentNode.parentNode;
+    const canvasWidth: number = canvasWrapper.offsetWidth;
+    const canvasHeight: number = canvasWrapper.offsetHeight;
+    setCanvasSizes({
+      canvasWidth,
+      canvasHeight,
+    })
+  }, [canvasRef]);
 
+  return (
+    <Stage
+      ref={canvasRef}
+      width={canvasWidth}
+      height={canvasHeight}
+    >
+      <Layer>
+        <Rect
+          width={canvasWidth}
+          height={canvasHeight}
+          fill={selectedBackground}
         >
-            <Layer>
-                <Rect
-                    width={canvasWidth}
-                    height={canvasHeight}
-                    fill={selectedBackground}
-                >
-                </Rect>
-                {patternIcons.map((item: string, index: number) => {
-                    return (
-                        <Group
-                            y={0}
-                            key={index}
-                            draggable
-                        >
-                            {[...Array(150)].map((_, index) => {
-                                const x = index % 20 * 170;
-                                const y = Math.floor(index / 20) * 170 ;
-                                return (
-                                    <Image
-                                        width={55}
-                                        height={55}
-                                        onMouseOver={handleCursorOver}
-                                        onMouseOut={handleCursorOut}
-                                        x={x}
-                                        y={y}
-                                        link={item}
-                                    />
-                                )})}
-                        </Group>
-                    )
-                })}
-            </Layer>
-        </Stage>
-    )
+        </Rect>
+        {patternIcons.map((item: string, index: number) => <PatternGroup image={item} key={index} index={index}/>)}
+      </Layer>
+    </Stage>
+  )
 };
 
 export default Canvas

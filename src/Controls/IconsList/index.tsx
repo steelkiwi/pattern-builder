@@ -1,17 +1,29 @@
 import React from 'react';
 
-import './IconsList.scss'
+import './IconsList.scss';
 
 interface Props {
-    icons: string[]
-    addPatternIcon: (icon: string) => void
+  icons: string[];
+  onIconClick: (icon: string) => void;
 }
 
+const IconsList: React.FC<Props> = ({icons, onIconClick}) => (
+  <ul className="pb__icons-list">
+    {icons.map((icon, index) => {
+      const handleClick = () => {
+        onIconClick(icon)
+      };
 
-const IconsList:React.FC<Props> = ({icons, addPatternIcon}) => (
-    <ul className="pb__icons-list">
-        {icons.map((icon, index) => <li key={icon} className="pb__icons-item"><img className="pb__icons-image" onClick={() => addPatternIcon(icon)} src={icon} alt={`icon ${index}`}/></li>)}
-    </ul>
+      return (
+        <li key={icon} className="pb__icons-item">
+          <img className="pb__icons-image"
+               onClick={handleClick}
+               src={icon}
+               alt={`icon-${index}`}/>
+        </li>
+      )
+    })}
+  </ul>
 );
 
 export default IconsList
