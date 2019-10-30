@@ -1,16 +1,17 @@
 import {createContext} from "react";
+import {DEFAULT_BACKGROUNDS_PALETTE} from "./constants";
 
-interface InitialState {
+interface IInitialState {
     icons: string[]
     backgrounds: string[]
 }
 
-const initialState: InitialState = {
+const initialState: IInitialState = {
     icons: [],
-    backgrounds: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF', '#000000'],
+    backgrounds: DEFAULT_BACKGROUNDS_PALETTE,
 };
 
-
+// TODO: Create AppContext interface
 const AppContext: any = createContext(initialState);
 
 export {initialState, AppContext}
