@@ -5,15 +5,14 @@ import {TwitterPicker, AlphaPicker, ColorChangeHandler, Color} from 'react-color
 interface Props {
     backgrounds: string[]
     onChange: ColorChangeHandler
-    selected: Color
+    selectedBackground: Color
 }
 
-const BackgroundPicker:React.FC<Props> = ({backgrounds, onChange, selected}) => {
-    console.log(backgrounds);
+const BackgroundPicker:React.FC<Props> = ({backgrounds, onChange, selectedBackground}) => {
     return (
         <div>
-            <TwitterPicker colors={backgrounds} onChangeComplete={onChange} />
-            <AlphaPicker color={selected} />
+            <TwitterPicker color={selectedBackground} colors={backgrounds} onChangeComplete={onChange} />
+            <AlphaPicker onChange={onChange} color={selectedBackground} />
         </div>
     );
 };

@@ -14,7 +14,7 @@ interface Props {
 
 
 const Img:React.FC<Props> = (props) => {
-    const [image] = useImage(props.link);
+    const [image] = useImage(props.link, 'Anonymous');
     return (
         <Image
             {...props}

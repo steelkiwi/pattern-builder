@@ -1,30 +1,28 @@
 import React, {Component, createRef} from 'react';
 import {initialState, AppContext} from "./store";
 import {Color} from "react-color";
+import './index.scss'
+import {getRGBAString} from "./helpers/helpers";
 
 interface Props {
     icons: string[];
     backgrounds?: string[];
+    onDownload?: (img: string) => void;
 }
 
 interface State {
     patternIcons: string[];
     selectedBackground: Color;
-    canvasWidth: number;
-    canvasHeight: number;
-    canvasStage?: HTMLDivElement
 }
-React.createRef<HTMLDivElement>();
-
 
 
 class App extends Component<Props, State> {
     state = {
         patternIcons: [],
-        selectedBackground: 'transparent',
-        canvasWidth: 55,
-        canvasHeight: 55,
+        selectedBackground: 'green',
     };
+
+    canvasRef = createRef<HTMLDivElement>();
 
     addPatternIcon = (icon: string) => {
         this.setState(state => (
@@ -34,31 +32,37 @@ class App extends Component<Props, State> {
             }))
     };
 
-    changeBackground = (background: Color) => {
-        this.setState({selectedBackground: background})
+    changeBackground = (background: any) => {
+        const {rgb} = background;
+        this.setState({selectedBackground: getRGBAString(rgb)})
     };
 
 
 
     render() {
+        const { onDownload } = this.props;
         return (
             <AppContext.Provider value={
                 {
                     state: this.state,
                     icons: this.props.icons || initialState.icons,
                     backgrounds: this.props.backgrounds || initialState.backgrounds,
-
+                    canvasRef: this.canvasRef,
                     handlers: {
                         addPatternIcon: this.addPatternIcon,
                         changeBackground: this.changeBackground,
+                    },
+                    callbacks: {
+                        onDownload
                     }
                 }
             }>
-                {this.props.children}
+                <div className="pb__wrapper">
+                    {this.props.children}
+                </div>
             </AppContext.Provider>
         )
     }
-
 }
 
 export default App

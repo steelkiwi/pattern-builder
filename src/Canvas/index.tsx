@@ -1,27 +1,39 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Stage, Layer, Group, Rect } from 'react-konva';
 import Image from './Image';
 import {AppContext} from "../store";
+import {handleCursorOut, handleCursorOver} from "../helpers/helpers";
 
-
-const handleCursorOver = (target: string) => {
-    document.body.style.cursor = target
-};
-
-const handleCursorOut = () => {
-    document.body.style.cursor = 'default'
-};
+interface CanvasSizes {
+    canvasWidth: number;
+    canvasHeight: number;
+}
 
 const Canvas:React.FC = () => {
+    const [canvasSizes, setCanvasSizes] = useState<CanvasSizes>({
+        canvasWidth: 0,
+        canvasHeight: 0,
+    });
+    const {canvasWidth, canvasHeight} = canvasSizes;
     const {
-        state: {selectedBackground, canvasWidth, canvasHeight, patternIcons}
+        state: {selectedBackground, patternIcons},
+        canvasRef,
         }
         = React.useContext(AppContext);
 
+    useEffect(() => {
+        const canvasWrapper = canvasRef.current.content.parentNode.parentNode;
+        const canvasWidth: number = canvasWrapper.offsetWidth;
+        const canvasHeight: number = canvasWrapper.offsetHeight;
+        setCanvasSizes({
+            canvasWidth,
+            canvasHeight,
+        })
+    }, [canvasRef]);
+
     return (
-        // @ts-ignore
         <Stage
-            // ref={stageRef}
+            ref={canvasRef}
             width={canvasWidth}
             height={canvasHeight}
 
@@ -40,14 +52,14 @@ const Canvas:React.FC = () => {
                             key={index}
                             draggable
                         >
-                            {[...Array(100)].map((_, index) => {
-                                const x = index % 10 * 170;
-                                const y = Math.floor(index / 10) * 270 ;
+                            {[...Array(150)].map((_, index) => {
+                                const x = index % 20 * 170;
+                                const y = Math.floor(index / 20) * 170 ;
                                 return (
                                     <Image
                                         width={55}
                                         height={55}
-                                        onMouseOver={() => handleCursorOver('move')}
+                                        onMouseOver={handleCursorOver}
                                         onMouseOut={handleCursorOut}
                                         x={x}
                                         y={y}
