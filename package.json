@@ -50,6 +50,7 @@
     "autoprefixer": "^9.7.0",
     "node-sass": "^4.13.0",
     "postcss": "^7.0.21",
+    "react-dom": "^16.11.0",
     "rollup": "^1.26.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-sass": "^1.2.2",
