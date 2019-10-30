@@ -3,6 +3,7 @@ import {Color} from "react-color";
 
 import {AppContext} from "./store";
 import {getRGBAString} from "./helpers";
+import './Index.scss'
 
 interface Props {
   icons: string[];

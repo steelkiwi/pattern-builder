@@ -16,6 +16,7 @@
 .vscode
 
 index.js
+bundle.css
 
 # misc
 .DS_Store
