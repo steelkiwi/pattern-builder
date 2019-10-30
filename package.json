@@ -16,8 +16,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build-package": "rollup -c",
-    "publish-package": "npm publish"
+    "prepublish": "rollup -c",
+    "publish": "npm publish"
   },
   "eslintConfig": {
     "extends": "react-app"
