@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {Stage, Layer, Group, Rect} from 'react-konva';
+import {Stage, Layer, Rect} from 'react-konva';
 
-import {handleCursorOutIcon, handleCursorOverIcon} from "../helpers";
 import {AppContext} from "../store";
 import PatternGroup from "./PatternGroup";
 

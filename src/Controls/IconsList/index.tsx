@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './IconsList.scss';
-
 interface Props {
   icons: string[];
   onIconClick: (icon: string) => void;
