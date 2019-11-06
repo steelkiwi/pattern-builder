@@ -40,6 +40,7 @@ const PatternGroup: React.FC<Props> = ({image, index, imageSize, imageOffset}) =
           x={x}
           y={y}
           link={image}
+          key={i}
         />
       )
     }

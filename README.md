@@ -3,7 +3,7 @@
 ### Installation & Usage
 
 ```js
- npm install pattern-builder
+ npm install react-background-pattern-generator
 ```
 
 
@@ -11,21 +11,20 @@
 
 ```js
 import React from 'react'
-import PatternBuilder, {Canvas, Control} from 'pattern-builder'
-
+import {BackgroundPatternGenerator, Canvas, Controls} from 'react-background-pattern-generator'
 const iconsArray = ['iconSrc']
 const backgrounds = ['#FF6900','#FCB900','#7BDCB5',]
 
 const Component = () => {
     return (
-        <PatternBuilder
-            icons={iconsArray}
-            backgrounds={backgrounds}
-            >
-                <Canvas />
-                <Control />
-        </PatternBuilder>
-    )
+        <BackgroundPatternGenerator
+    icons={iconsArray}
+    backgrounds={backgrounds}
+        >
+        <Canvas />
+        <Controls />
+        </BackgroundPatternGenerator>
+)
 }
 ```
 The Download Button initiates the download pattern.png file by default.
@@ -36,10 +35,10 @@ const Component = () => {
     const handleDownload = (value) => {
         // value = data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA.....
     }
-    return <PatternBuilder onDonwload={handleDownload}>
+    return <BackgroundPatternGenerator onDonwload={handleDownload}>
             <Canvas />
-            <Control />
-        </PatternBuilder>
+            <Controls />
+        </BackgroundPatternGenerator>
     )
 }
 ```
