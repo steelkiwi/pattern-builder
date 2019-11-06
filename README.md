@@ -28,8 +28,8 @@ const Component = () => {
     )
 }
 ```
-Download Button is initiates download pattern.png file by default.
-Else you can get base64 string by use onDownload handler.
+The Download Button initiates the download pattern.png file by default.
+Also you can get base64 string by use onDownload handler.
 
 ```js
 const Component = () => {
@@ -44,12 +44,21 @@ const Component = () => {
 }
 ```
 
-You can in different dom nodes. Canvas is basically take 100% sizes of its parent node.
+You can wrap the components in different DOM nodes. Canvas takes the 100% sizes of its parent node by default.
 
-also exists classes for basics components
+Some classes of basics components are:
 * App wrapper - `pb__wrapper`
     * Controls wrapper - `pb__controls`
         * Icons wrapper - `pb__icons-list`
         * Export wrapper - `pb__export`
         * BackgroundPicker wrapper - `pb__backgrounds`
 
+### Props
+
+| Property      | Type          |
+| ------------- | ------------- |
+| icons:        | string[]      |
+| backgrounds:  | string[]      |
+| onDownload?:  | (img: string) => void   |
+| imageSize?:   | number   |
+| imageOffset?: | number   |

@@ -11,10 +11,10 @@ interface CanvasSizes {
 
 const Canvas: React.FC = () => {
   const {
-    state: {selectedBackground, patternIcons},
+    state: {selectedBackground, patternIcons, imageSize},
+    imageOffset,
     canvasRef,
   } = useContext(AppContext);
-
   const [canvasSizes, setCanvasSizes] = useState<CanvasSizes>({
     canvasWidth: 0,
     canvasHeight: 0,
@@ -31,7 +31,6 @@ const Canvas: React.FC = () => {
       canvasHeight,
     })
   }, [canvasRef]);
-
   return (
     <Stage
       ref={canvasRef}
@@ -45,7 +44,7 @@ const Canvas: React.FC = () => {
           fill={selectedBackground}
         >
         </Rect>
-        {patternIcons.map((item: string, index: number) => <PatternGroup image={item} key={index} index={index}/>)}
+        {patternIcons.map((item: string, index: number) => <PatternGroup imageSize={imageSize} imageOffset={imageOffset || imageSize} image={item} key={index} index={index}/>)}
       </Layer>
     </Stage>
   )

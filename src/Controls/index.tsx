@@ -4,6 +4,7 @@ import {AppContext} from "../store";
 import IconsList from "./IconsList";
 import BackgroundPicker from "./BackgroundPicker";
 import Export from "./Export";
+import ImagesSize from "./ImagesSize";
 
 const Controls: React.FC = () => {
   const [canvasSize, setCanvasSize] = useState({
@@ -12,12 +13,12 @@ const Controls: React.FC = () => {
   });
 
   const {
-    state: {selectedBackground},
+    state: {selectedBackground, imageSize},
     icons,
     backgrounds,
     canvasRef,
     callbacks: {onDownload},
-    handlers: {addPatternIcon, changeBackground},
+    handlers: {addPatternIcon, changeBackground, changeImageSize},
   } = React.useContext(AppContext);
 
   // TODO: Make normal canvasRef interface
@@ -40,6 +41,7 @@ const Controls: React.FC = () => {
       <IconsList onIconClick={addPatternIcon} icons={icons}/>
       <BackgroundPicker selectedBackground={selectedBackground} onChange={changeBackground} backgrounds={backgrounds}/>
       {canvasRef && <Export canvasSize={canvasSize} canvasRef={canvasRef} onDownload={onDownload}/>}
+      <ImagesSize imageSize={imageSize} changeImageSize={changeImageSize}/>
     </div>
   )
 };

@@ -7,6 +7,8 @@ import {handleCursorOutIcon, handleCursorOverIcon} from "../../helpers";
 interface Props {
   image: string;
   index: number;
+  imageSize: number;
+  imageOffset: number;
 }
 
 interface CartesianCoordinates {
@@ -14,11 +16,9 @@ interface CartesianCoordinates {
   y: number;
 }
 
-const PatternGroup: React.FC<Props> = ({image, index}) => {
+const PatternGroup: React.FC<Props> = ({image, index, imageSize, imageOffset}) => {
   const elementsInGrid = 20;
-  const imageOffset = 170;
   const imagesAmount = 150;
-  const imageSize = 55;
 
   const getImagePosition = (index: number): CartesianCoordinates => {
     return {
